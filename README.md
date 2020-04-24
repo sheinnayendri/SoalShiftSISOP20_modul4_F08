@@ -23,8 +23,8 @@ void encr(char* str)
 	if(!strcmp(str, ".") || !strcmp(str, "..")) return;
 	for(i = 0; i < strlen(str); i++)
 	{
-		for(j = 0; j < 87; j++){
-			// printf("%c",key[j]);
+		for(j = 0; j < 87; j++)
+		{
 			if(str[i] == key[j]){
 				str[i] = key[(j + ges) % 87];
 				break;
@@ -39,8 +39,8 @@ void decr(char* str)
 	if(!strcmp(str, ".") || !strcmp(str, "..")) return;
 	for(i = 0 ; i < strlen(str); i++)
 	{
-		for(j = 0; j < 87; j++){
-			// printf("%c",key[j]);
+		for(j = 0; j < 87; j++)
+		{
 			if(str[i] == key[j]){
 				str[i] = key[(j + 87 - ges) % 87];
 				break;
