@@ -13,7 +13,9 @@ Soal Shift Sistem Operasi 2020
 Soal ini meminta kami membuat File System seperti layaknya linux, dengan beberapa ketentuan dan mount source (root) filesystem adalah direktori ```/home/[user]/Documents```.
 
 ## Soal1
-Soal 1 meminta kami melakukan enkripsi dengan Caeshar Cipher key ```9(ku@AW1[Lmvgax6q`5Y2Ry?+sF!^HKQiBXCUSe&0M.b%rI'7d)o4~VfZ*{#:}ETt$3J-zpc]lnh8,GwP_ND|jO``` dan dengan ```key=10```. Oleh karena itu, kami buat fungsi tersendiri untuk melakukan enkripsi dan dekripsi ketika dibutuhkan seperti sebagai berikut:
+Soal 1 meminta kami melakukan enkripsi dengan Caeshar Cipher key 
+```9(ku@AW1[Lmvgax6q`5Y2Ry?+sF!^HKQiBXCUSe&0M.b%rI'7d)o4~VfZ*{#:}ETt$3J-zpc]lnh8,GwP_ND|jO``` 
+dan dengan ```key=10```. Oleh karena itu, kami buat fungsi tersendiri untuk melakukan enkripsi dan dekripsi ketika dibutuhkan seperti sebagai berikut:
 ```c
 char key[90] = "9(ku@AW1[Lmvgax6q`5Y2Ry?+sF!^HKQiBXCUSe&0M.b%rI'7d)o4~VfZ*{#:}ETt$3J-zpc]lnh8,GwP_ND|jO";
 int ges = 10;
