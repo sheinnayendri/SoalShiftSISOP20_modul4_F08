@@ -240,7 +240,11 @@ void listFilesRecursivelyDec2(char *basePath)
 ```
 #
 
-## Soal 4
+## Soal3
+
+#
+
+## Soal4
 Soal ini meminta kami untuk membuat file log yang berisi perintah-perintah apa saja yang dilakukan pada file system dengan format:
 ```[LEVEL]::[yy][mm][dd]-[HH]:[MM]:[SS]::[CMD]::[DESC ...]```
 
