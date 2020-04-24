@@ -249,6 +249,7 @@ Soal ini meminta kami untuk membuat file log yang berisi perintah-perintah apa s
 ```[LEVEL]::[yy][mm][dd]-[HH]:[MM]:[SS]::[CMD]::[DESC ...]```
 
 Dengan keterangan:
+```
 LEVEL    : Level logging
 yy   	 : Tahun dua digit
 mm    	 : Bulan dua digit
@@ -258,6 +259,7 @@ MM    	 : Menit dua digit
 SS    	 : Detik dua digit
 CMD     	 : System call yang terpanggil
 DESC      : Deskripsi tambahan (bisa lebih dari satu, dipisahkan dengan ::)
+```
 
 Contoh isi file log:
 ```
