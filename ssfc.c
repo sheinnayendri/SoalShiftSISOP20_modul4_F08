@@ -5,7 +5,6 @@
 #include<unistd.h>
 #include<fcntl.h>
 #include<dirent.h>
-#include<stat.h>
 #include<errno.h>
 #include<sys/time.h>
 
@@ -182,13 +181,15 @@ void listFilesRecursivelyEnc2(char *basePath)
 			cid = fork();
 			if(cid == 0)
 			{
+//				split -d 3 -b 1024K [nama_file] [nama_file].
+//				csplit -n 3 domainlist 
 				char *argv[] = {"split", "-d", "3", "-b", "1024K", basePath, finalPath, NULL};
 				execv("/bin/split", argv);
 				exit(1);
 			}
 			else wait(NULL);
 			
-            printf("%s\n", foldername);
+            printf("%s\n", basePath);
             
             strcpy(path, basePath);
             strcat(path, "/");
@@ -267,11 +268,13 @@ void decrypt2(char *name)
 void writeI(char *text, char* path)
 {
     char* info = "INFO";
+	char curtime[30];
     time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
+    struct tm* p1 = localtime(&t);
+	strftime(curtime, 30, "%y%m%d-%H:%M:%S", p1);
     char log[1000];
-    sprintf(log, "[%s]::[%02d][%02d][%02d]-[%02d]:[%02d]:[%02d]::[%s]::[%s]", info, tm.tm_year, tm.tm_mon, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, text, path);
-    FILE *out = fopen("/home/sheinna/fs.log", "a");  
+    sprintf(log, "%s::%s::%s::%s", info, curtime, text, path);
+	FILE *out = fopen("/home/sheinna/fs.log", "a");  
     fprintf(out, "%s\n", log);  
     fclose(out);  
     return 0;
@@ -280,11 +283,13 @@ void writeI(char *text, char* path)
 void writeW(char *text, char* path)
 {
     char* info = "WARNING";
+    char curtime[30];
     time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
+    struct tm* p1 = localtime(&t);
+	strftime(curtime, 30, "%y%m%d-%H:%M:%S", p1);
     char log[1000];
-    sprintf(log, "[%s]::[%02d][%02d][%02d]-[%02d]:[%02d]:[%02d]::[%s]::[%s]", info, tm.tm_year, tm.tm_mon, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec, text, path);
-    FILE *out = fopen("/home/sheinna/fs.log", "a");  
+    sprintf(log, "%s::%s::%s::%s", info, curtime, text, path);
+	FILE *out = fopen("/home/sheinna/fs.log", "a");  
     fprintf(out, "%s\n", log);  
     fclose(out);  
     return 0;
@@ -383,6 +388,7 @@ static int xmp_mkdir(const char *path, mode_t mode)
     
     char cek_substr[10];
     substring(path, cek_substr, 0, 6);
+	printf("%s -- %s", path, cek_substr);
 	if(strcpy(cek_substr, "encv1_") == 0) //folder encrypt1
 	{
 		encrypt1(path);	
@@ -472,11 +478,11 @@ static int xmp_rename(const char *from, const char *to)
 	}
 	else if(strcpy(cek2, "encv1_") == 0) //folder decrypt1
 	{
-		decrpyt1(from);
+		decrypt1(from);
 	}
 	else if(strcpy(cek2, "encv2_") == 0) //folder decrypt2
 	{
-		decrpyt2(from);
+		decrypt2(from);
 	}
 	
 	if (res == -1)
@@ -669,7 +675,6 @@ static int xmp_create(const char* path, mode_t mode, struct fuse_file_info* fi)
     return 0;
 }
 
-
 static int xmp_release(const char *path, struct fuse_file_info *fi)
 {
 	(void) path;
@@ -685,7 +690,6 @@ static int xmp_fsync(const char *path, int isdatasync,
 	(void) fi;
 	return 0;
 }
-
 
 static struct fuse_operations xmp_oper = {
 	.getattr	= xmp_getattr,
